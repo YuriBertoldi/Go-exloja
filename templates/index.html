@@ -1,25 +1,12 @@
 {{define "index"}}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-        crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <title>loja</title>
-</head>
-<nav class="navbar navbar-light bg-light mb-4">
-    <a class="navbar-brand" href="/">Loja</a>
-</nav>
+{{template "_head"}}
+{{template "_menu"}}
 
 <body>
     <div class="container">
         <section class="card">
             <div>
+            
                 <table class="table table-striped table-hover mb-0">
                     <thead>
                         <tr>
@@ -27,6 +14,8 @@
                             <th>Descrição</th>
                             <th>Preço</th>
                             <th>Quantidade</th>
+                            <th>Função deletar</th>
+                            <th>Função atualizar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,16 +25,29 @@
                             <td>{{.Descricao}}</td>
                             <td>{{.Valor}}</td>
                             <td>{{.Quantidade}}</td>
+                            <td><button onclick="OnConfirmaDelete('{{.Id}}')"  class="btn btn-danger">Deletar</button></td>
+                            <td><a href="/editProduto?id={{.Id}}" class="btn btn-info">Alterar</a></td>
                         </tr>    
-                        {{end}}                  
-                    </tbody>
-                </table>
+                        {{end}}                          
+                    </tbody>                
+                </table>                
             </div>
         </section>
-    </div class="card-footer">
-        <a href="/newProduto" class="btn btn-primary mb-2">Novo</a>
+        </div class="card-footer">
+            <a href="/newProduto" class="btn btn-primary mb-2">Criar novo produto</a>
+        </div>
     </div>
 </body>
+
+<script>    
+    function OnConfirmaDelete(id) {
+        let resposta = confirm("Confirmar deletar o produto ?")
+        if (resposta) {
+            window.location = "/deleteProduto?id="+ id
+        }
+    }
+
+</script>
 
 </html>
 {{end}}
